@@ -1,4 +1,4 @@
-import { ReduxProcessGroup } from '../../../src'
+import { ReduxProcessGroup } from '../../../../src'
 import { AllPostsProcess } from './All'
 import { RootState } from '../../store'
 

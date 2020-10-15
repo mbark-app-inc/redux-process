@@ -1,4 +1,4 @@
-import { ReduxProcess } from '../../../src'
+import { ReduxProcess } from '../../../../src'
 import { AuthState } from './index'
 import { RootState } from '../../store'
 
