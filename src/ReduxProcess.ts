@@ -17,7 +17,10 @@ export abstract class ReduxProcess<
     this.options = options
   }
 
-  abstract performAction(form: Form, store: GlobalState): Promise<PayloadValue>
+  abstract performAction(
+    form: Form,
+    store: GlobalState
+  ): PayloadValue | Promise<PayloadValue>
 
   abstract getNewState(
     payload: PayloadValue,

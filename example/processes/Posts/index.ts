@@ -1,0 +1,18 @@
+import { ReduxProcessGroup } from '../../../src'
+import { AllPostsProcess } from './All'
+import { RootState } from '../../store'
+
+export type Post = {
+  id: number
+  title: string
+}
+
+export type PostsState = Post[]
+
+const auth = new ReduxProcessGroup<PostsState, RootState>('post', {
+  defaultState: [],
+  processes: [AllPostsProcess]
+})
+
+export default auth
+export { AllPostsProcess }

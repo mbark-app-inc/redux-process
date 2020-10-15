@@ -23,7 +23,10 @@ export interface IReduxProcess<
 > {
   options: ReduxProcessOptions
 
-  performAction(form: Form | null, store: GlobalState): Promise<PayloadValue>
+  performAction(
+    form: Form | null,
+    store: GlobalState
+  ): PayloadValue | Promise<PayloadValue>
 
   getNewState(
     payload: PayloadValue,
