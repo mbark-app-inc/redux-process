@@ -2,10 +2,11 @@
   "name": "redux-process",
   "version": "1.0.0",
   "description": "Create a unified redux action and reducer set in an object oriented style",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "format": "prettier --write 'src/**/*.{ts,json}'",
-    "example": "ts-node ./example/index.ts"
+    "example": "node ./example/index.js",
+    "build": "tsc -p ./tsconfig.json"
   },
   "repository": {
     "type": "git",
