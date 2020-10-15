@@ -1,0 +1,43 @@
+{
+  "name": "redux-process",
+  "version": "1.0.0",
+  "description": "Create a unified redux action and reducer set in an object oriented style",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.{ts,json}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bolencki13/redux-process.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.+(ts|json)": [
+      "npm run format"
+    ]
+  },
+  "keywords": [
+    "redux",
+    "typescript",
+    "ooo",
+    "object oriented programming",
+    "redux typescript"
+  ],
+  "author": "Brian Olencki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bolencki13/redux-process/issues"
+  },
+  "homepage": "https://github.com/bolencki13/redux-process#readme",
+  "devDependencies": {
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "nodemon": "^2.0.5",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
+  }
+}
