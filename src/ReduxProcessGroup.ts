@@ -59,7 +59,7 @@ export class ReduxProcessGroup<GroupState, GlobalState>
 
   getReducer(): Reducer<GroupState, ReduxProcessAction<any>> {
     return (state, action) => {
-      if (!state) {
+      if (state === undefined) {
         state = this.options.defaultState
       }
 
