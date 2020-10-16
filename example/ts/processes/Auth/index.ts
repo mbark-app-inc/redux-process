@@ -1,4 +1,4 @@
-import { ReduxProcessGroup } from '../../../../src'
+import { ReduxProcessGroup } from '../../../../dist'
 import { LoginProcess } from './Login'
 import { LogoutProcess } from './Logout'
 import { CurrentUserProcess } from './Current'

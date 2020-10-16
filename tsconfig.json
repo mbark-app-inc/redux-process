@@ -9,7 +9,9 @@
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "sourceMap": true,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "declaration": true,
     "outDir": "./dist"
   },
   "include": ["./src/**/*"],
