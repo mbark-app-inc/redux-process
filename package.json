@@ -6,6 +6,7 @@
   "scripts": {
     "format": "prettier --write 'src/**/*.{ts,json}'",
     "example:ts": "ts-node --project ./example/ts/tsconfig.json ./example/ts/index.ts",
+    "example:js": "node ./example/js/index.js",
     "build": "tsc -p ./tsconfig.json"
   },
   "repository": {
