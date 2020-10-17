@@ -18,6 +18,8 @@ npm install redux-process --save
 
 There are two parts to Redux Process, the `ReduxProcessGroup` and a `ReduxProcess`. Multiple `ReduxProcess` belong to a `ReduxProcessGroup`. You can easily merge `ReduxProcessGroup` with `combineReducer`.
 
+See [docs/](https://github.com/bolencki13/redux-process/tree/main/docs) for documentation of each component and advanced usage.
+
 See the [example/](https://github.com/bolencki13/redux-process/tree/main/example) folder for javascript and typescript examples.
 
 ## Development setup
