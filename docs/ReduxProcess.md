@@ -32,6 +32,9 @@ getNewState(payload: PayloadValue, oldState: ProcessGroupState): ProcessGroupSta
 ```
 * This method is the reducer specific code for the defined action above. This would traditionally be the code executed within the reducer for the specific `action.type`. In here, a new state object should be returned.
 
+### Properties
+* `options` - Options will contain any provided options from an overwritten `ReduxProcessGroup` class. See [ReduxProcessGroup docs](https://github.com/bolencki13/redux-process/blob/main/docs/ReduxProcessGroup.md#advanced) for more information.
+
 ## Example
 ```typescript
 type User = {
