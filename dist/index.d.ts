@@ -1,3 +1,4 @@
 import { ReduxProcess } from './ReduxProcess'
 import { ReduxProcessGroup } from './ReduxProcessGroup'
-export { ReduxProcess, ReduxProcessGroup }
+import { ReduxProcessStore } from './ReduxProcessStore'
+export { ReduxProcess, ReduxProcessGroup, ReduxProcessStore }

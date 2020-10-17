@@ -9,7 +9,7 @@ export type Post = {
 
 export type PostsState = Post[]
 
-const auth = new ReduxProcessGroup<PostsState, RootState>('post', {
+const auth = new ReduxProcessGroup<PostsState, RootState>('posts', {
   defaultState: [],
   processes: [AllPostsProcess]
 })

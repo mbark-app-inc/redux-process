@@ -36,7 +36,10 @@
     "ooo",
     "object oriented programming",
     "redux typescript",
-    "react"
+    "react",
+    "dynamic",
+    "reducer",
+    "action"
   ],
   "author": "Brian Olencki",
   "license": "MIT",

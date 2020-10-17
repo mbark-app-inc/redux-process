@@ -1,18 +1,13 @@
-import thunk from 'redux-thunk'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { ReduxProcessStore } from '../../dist'
 import auth, { AuthState } from './processes/Auth'
 import posts, { PostsState } from './processes/Posts'
 
-const middleware = applyMiddleware(thunk)
-
-const reducers = combineReducers({
-  auth: auth.getReducer(),
-  posts: posts.getReducer()
-})
+const processStore = new ReduxProcessStore()
+processStore.addProcessGroup(auth).addProcessGroup(posts)
 
 export type RootState = {
   auth: AuthState
   posts: PostsState
 }
 
-export const store = createStore(reducers, middleware)
+export const store = processStore.getStore()
