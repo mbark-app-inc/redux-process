@@ -5,20 +5,20 @@ import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction, ReduxProcessOptions } from './types/ReduxProcess'
 import { ReduxProcessGroupOptions } from './types/ReduxProcessGroup'
 
-export class ReduxProcessGroup<GroupState, GlobalState>
-  implements IReduxProcessGroup<GroupState, GlobalState> {
+export class ReduxProcessGroup<ProcessGroupState, GlobalState>
+  implements IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
-  options: ReduxProcessGroupOptions<GroupState>
+  options: ReduxProcessGroupOptions<ProcessGroupState>
 
   constructor(
     groupName: string,
-    options: ReduxProcessGroupOptions<GroupState>
+    options: ReduxProcessGroupOptions<ProcessGroupState>
   ) {
     this.groupName = groupName
     this.options = options
   }
 
-  getDefaultState(): GroupState {
+  getDefaultState(): ProcessGroupState {
     return this.options.defaultState
   }
 
@@ -26,7 +26,7 @@ export class ReduxProcessGroup<GroupState, GlobalState>
     CustomReduxProcess: IReduxProcessClass<
       Form,
       PayloadValue,
-      GroupState,
+      ProcessGroupState,
       GlobalState
     >,
     form: Form | null = null
@@ -44,7 +44,7 @@ export class ReduxProcessGroup<GroupState, GlobalState>
 
     return async (dispatch, getState) => {
       const store = getState()
-      const action = new CustomReduxProcess(this.getReduxProcessOptions())
+      const action = new CustomReduxProcess(this.getReduxProcessOptions(store))
 
       const result = await action.performAction(form, store)
 
@@ -57,7 +57,7 @@ export class ReduxProcessGroup<GroupState, GlobalState>
     }
   }
 
-  getReducer(): Reducer<GroupState, ReduxProcessAction<any>> {
+  getReducer(): Reducer<ProcessGroupState, ReduxProcessAction<any>> {
     return (state, action) => {
       if (state === undefined) {
         state = this.options.defaultState
@@ -82,7 +82,7 @@ export class ReduxProcessGroup<GroupState, GlobalState>
     return `@redux-process-group/${this.groupName.toLowerCase()}/${key.toLowerCase()}`
   }
 
-  getReduxProcessOptions(): ReduxProcessOptions {
+  getReduxProcessOptions(_?: GlobalState): ReduxProcessOptions {
     return {}
   }
 }

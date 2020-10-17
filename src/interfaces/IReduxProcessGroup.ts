@@ -4,24 +4,24 @@ import { ReduxProcessAction, ReduxProcessOptions } from '../types/ReduxProcess'
 import { ReduxProcessGroupOptions } from '../types/ReduxProcessGroup'
 import { IReduxProcessClass } from './IReduxProcess'
 
-export interface IReduxProcessGroupClass<GroupState, GlobalState> {
+export interface IReduxProcessGroupClass<ProcessGroupState, GlobalState> {
   new (
     groupName: string,
-    options: ReduxProcessGroupOptions<GroupState>
-  ): IReduxProcessGroup<GroupState, GlobalState>
+    options: ReduxProcessGroupOptions<ProcessGroupState>
+  ): IReduxProcessGroup<ProcessGroupState, GlobalState>
 }
 
-export interface IReduxProcessGroup<GroupState, GlobalState> {
+export interface IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
-  options: ReduxProcessGroupOptions<GroupState>
+  options: ReduxProcessGroupOptions<ProcessGroupState>
 
-  getDefaultState(): GroupState
+  getDefaultState(): ProcessGroupState
 
   execute<Form, PayloadValue>(
     CustomReduxProcess: IReduxProcessClass<
       Form,
       PayloadValue,
-      GroupState,
+      ProcessGroupState,
       GlobalState
     >,
     form: Form
@@ -32,9 +32,9 @@ export interface IReduxProcessGroup<GroupState, GlobalState> {
     ReduxProcessAction<PayloadValue>
   >
 
-  getReducer(): Reducer<GroupState, ReduxProcessAction<any>>
+  getReducer(): Reducer<ProcessGroupState, ReduxProcessAction<any>>
 
   getFormattedActionType(key: string): string
 
-  getReduxProcessOptions(): ReduxProcessOptions
+  getReduxProcessOptions(store?: GlobalState): ReduxProcessOptions
 }
