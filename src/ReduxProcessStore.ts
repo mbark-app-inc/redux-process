@@ -13,7 +13,8 @@ export class ReduxProcessStore implements IReduxProcessStore {
 
   constructor(middlewares: any[] = []) {
     const middleware = applyMiddleware(thunk, ...middlewares)
-    this.store = createStore(this._internalReducer.bind(this), middleware)
+    this._internalReducer = this._internalReducer.bind(this)
+    this.store = createStore(this._internalReducer, middleware)
   }
 
   addProcessGroup(processGroup: IReduxProcessGroup<any, any>): this {
@@ -26,7 +27,10 @@ export class ReduxProcessStore implements IReduxProcessStore {
     return this
   }
 
-  protected _internalReducer(state: any, action: ReduxProcessAction<any>) {
+  _internalReducer(
+    state: Record<string, any> = {},
+    action: ReduxProcessAction<any>
+  ) {
     const mergedState: Record<string, any> = {}
     for (const processName in this.processes) {
       const reducer = this.processes[processName]
@@ -35,18 +39,6 @@ export class ReduxProcessStore implements IReduxProcessStore {
       mergedState[processName] = newState
     }
     return mergedState
-  }
-
-  protected _getStrippedState(
-    state: Record<string, any>,
-    defaultState: Record<string, any>
-  ) {
-    return Object.entries(state).reduce((newState, [key, value]) => {
-      if (key in newState) {
-        ;(newState as any)[key] = value
-      }
-      return newState
-    }, defaultState)
   }
 
   getStore() {
