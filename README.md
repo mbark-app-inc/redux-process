@@ -11,12 +11,12 @@ Redux process removes the need to maintain your redux reducer and actions in two
 Redux Process uses `redux` and `redux-thunk` under the hood for processing.
 
 ```sh
-npm install redux-process --save
+npm install ts-redux-process --save
 ```
 
 ## Usage example
 
-There are two parts to Redux Process, the `ReduxProcessGroup` and a `ReduxProcess`. Multiple `ReduxProcess` belong to a `ReduxProcessGroup`. You can easily merge `ReduxProcessGroup` with `combineReducer`.
+There are three parts to Redux Process: `ReduxProcessStore`, `ReduxProcessGroup` and a `ReduxProcess`. Multiple `ReduxProcess` belong to a `ReduxProcessGroup`. `ReduxProcessGroup`s are added to the ReduxProcessStore for processing. This enables dynamic reducers.
 
 See [docs/](https://github.com/bolencki13/redux-process/tree/main/docs) for documentation of each component and advanced usage.
 

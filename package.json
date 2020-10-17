@@ -39,6 +39,7 @@
     "react",
     "dynamic",
     "reducer",
+    "reducers",
     "action"
   ],
   "author": "Brian Olencki",
