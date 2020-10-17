@@ -1,5 +1,5 @@
 # Redux Process
-> A object oriented redux wrapper for writing maintainable actions and reducers at scale.
+> An object oriented redux wrapper for writing maintainable actions and reducers at scale.
 
 [![NPM Version][npm-image]][npm-url]
 [![Downloads Stats][npm-downloads]][npm-url]
