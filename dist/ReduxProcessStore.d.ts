@@ -8,9 +8,7 @@ export declare class ReduxProcessStore implements IReduxProcessStore {
   constructor(middlewares?: any[])
   addProcessGroup(processGroup: IReduxProcessGroup<any, any>): this
   removeProcessGroup(processGroup: IReduxProcessGroup<any, any>): this
-  _internalReducer(
-    state: Record<string, any> | undefined,
-    action: ReduxProcessAction<any>
-  ): Record<string, any>
+  _updateReducer(): void
+  _internalReducer(state?: Record<string, any>): Record<string, any>
   getStore(): Store<any, ReduxProcessAction<any>>
 }

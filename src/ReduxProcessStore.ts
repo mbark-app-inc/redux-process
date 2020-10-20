@@ -1,5 +1,11 @@
 import thunk from 'redux-thunk'
-import { Store, createStore, applyMiddleware, Reducer } from 'redux'
+import {
+  Store,
+  createStore,
+  applyMiddleware,
+  combineReducers,
+  Reducer
+} from 'redux'
 import { IReduxProcessStore } from './interfaces/IReduxProcessStore'
 import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction } from './types/ReduxProcess'
@@ -19,48 +25,26 @@ export class ReduxProcessStore implements IReduxProcessStore {
 
   addProcessGroup(processGroup: IReduxProcessGroup<any, any>): this {
     this.processes[processGroup.groupName] = processGroup.getReducer()
+    this._updateReducer()
     return this
   }
 
   removeProcessGroup(processGroup: IReduxProcessGroup<any, any>): this {
     delete this.processes[processGroup.groupName]
+    this._updateReducer()
     return this
   }
 
-  _internalReducer(
-    state: Record<string, any> = {},
-    action: ReduxProcessAction<any>
-  ) {
-    const mergedState: Record<string, any> = {}
-    for (const processName in this.processes) {
-      const reducer = this.processes[processName]
-      const origState = state[processName]
-      const newState = reducer(origState, action)
-      mergedState[processName] = newState
-    }
-    return mergedState
+  _updateReducer() {
+    const newReducer = combineReducers(this.processes)
+    this.store.replaceReducer(newReducer)
+  }
+
+  _internalReducer(state: Record<string, any> = {}) {
+    return state
   }
 
   getStore() {
     return this.store
   }
 }
-
-// import thunk from 'redux-thunk'
-// import { createStore, applyMiddleware, combineReducers } from 'redux'
-// import auth, { AuthState } from './processes/Auth'
-// import posts, { PostsState } from './processes/Posts'
-//
-// const middleware = applyMiddleware(thunk)
-//
-// const reducers = combineReducers({
-//   auth: auth.getReducer(),
-//   posts: posts.getReducer()
-// })
-//
-// export type RootState = {
-//   auth: AuthState
-//   posts: PostsState
-// }
-//
-// export const store = createStore(reducers, middleware)

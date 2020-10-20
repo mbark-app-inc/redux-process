@@ -23,13 +23,8 @@ describe('src/ReduxProcessStore::internalReducer', function () {
 
     const _internalReducer = instance['_internalReducer']
 
-    const state = _internalReducer(undefined, {
-      type: process.getFormattedActionType(Process.getProcessKey()),
-      payload: 2
-    })
+    const state = _internalReducer(undefined)
 
-    this.assert.deepEqual(state, {
-      test: 2
-    })
+    this.assert.deepEqual(state, {})
   })
 })
