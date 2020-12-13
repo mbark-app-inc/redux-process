@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bolencki13/redux-process.git"
+    "url": "git+https://github.com/Olencki-Development/redux-process.git"
   },
   "husky": {
     "hooks": {
@@ -45,9 +45,9 @@
   "author": "Brian Olencki",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bolencki13/redux-process/issues"
+    "url": "https://github.com/Olencki-Development/redux-process/issues"
   },
-  "homepage": "https://github.com/bolencki13/redux-process#readme",
+  "homepage": "https://github.com/Olencki-Development/redux-process#readme",
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.3",

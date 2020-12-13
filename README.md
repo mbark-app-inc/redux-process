@@ -18,9 +18,9 @@ npm install ts-redux-process --save
 
 There are three parts to Redux Process: `ReduxProcessStore`, `ReduxProcessGroup` and a `ReduxProcess`. Multiple `ReduxProcess` belong to a `ReduxProcessGroup`. `ReduxProcessGroup`s are added to the ReduxProcessStore for processing. This enables dynamic reducers.
 
-See [docs/](https://github.com/bolencki13/redux-process/tree/main/docs) for documentation of each component and advanced usage.
+See [docs/](https://github.com/Olencki-Development/redux-process/tree/main/docs) for documentation of each component and advanced usage.
 
-See the [example/](https://github.com/bolencki13/redux-process/tree/main/example) folder for javascript and typescript examples.
+See the [example/](https://github.com/Olencki-Development/redux-process/tree/main/example) folder for javascript and typescript examples.
 
 ## Development setup
 
@@ -33,19 +33,19 @@ npm test
 
 ## Release History
 
-See [CHANGELOG.md](https://github.com/bolencki13/redux-process/blob/main/CHANGELOG.md) for more information.
+See [CHANGELOG.md](https://github.com/Olencki-Development/redux-process/blob/main/CHANGELOG.md) for more information.
 
 ## Meta
 
 Brian Olencki – [brian.olencki.com](https://brian.olencki.com)
 
-Distributed under the MIT license. See [LICENSE](https://github.com/bolencki13/redux-process/blob/main/LICENSE) for more information.
+Distributed under the MIT license. See [LICENSE](https://github.com/Olencki-Development/redux-process/blob/main/LICENSE) for more information.
 
-[https://github.com/bolencki13/redux-process](https://github.com/bolencki13/redux-process)
+[https://github.com/Olencki-Development/redux-process](https://github.com/Olencki-Development/redux-process)
 
 ## Contributing
 
-1. Fork it (<https://github.com/bolencki13/redux-process/fork>)
+1. Fork it (<https://github.com/Olencki-Development/redux-process/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
