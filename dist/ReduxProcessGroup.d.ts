@@ -3,16 +3,21 @@ import { Reducer } from 'redux'
 import { IReduxProcessClass } from './interfaces/IReduxProcess'
 import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction, ReduxProcessOptions } from './types/ReduxProcess'
-import { ReduxProcessGroupOptions } from './types/ReduxProcessGroup'
+import {
+  ReduxProcessGroupOptions,
+  ErrorHandler
+} from './types/ReduxProcessGroup'
 export declare class ReduxProcessGroup<ProcessGroupState, GlobalState>
   implements IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
   options: ReduxProcessGroupOptions<ProcessGroupState>
+  protected errorHandler?: ErrorHandler
   constructor(
     groupName: string,
     options: ReduxProcessGroupOptions<ProcessGroupState>
   )
   getDefaultState(): ProcessGroupState
+  setErrorHandler(cb: ErrorHandler): void
   execute<Form, PayloadValue>(
     CustomReduxProcess: IReduxProcessClass<
       Form,

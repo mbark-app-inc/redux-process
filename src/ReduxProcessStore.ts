@@ -9,6 +9,7 @@ import {
 import { IReduxProcessStore } from './interfaces/IReduxProcessStore'
 import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction } from './types/ReduxProcess'
+import { ErrorHandler } from './types/ReduxProcessGroup'
 
 export class ReduxProcessStore implements IReduxProcessStore {
   protected store: Store<any, ReduxProcessAction<any>>
@@ -16,6 +17,7 @@ export class ReduxProcessStore implements IReduxProcessStore {
     string,
     Reducer<any, ReduxProcessAction<any>>
   > = {}
+  protected errorHandler?: ErrorHandler
 
   constructor(middlewares: any[] = []) {
     const middleware = applyMiddleware(thunk, ...middlewares)
@@ -24,6 +26,9 @@ export class ReduxProcessStore implements IReduxProcessStore {
   }
 
   addProcessGroup(processGroup: IReduxProcessGroup<any, any>): this {
+    if (this.errorHandler) {
+      processGroup.setErrorHandler(this.errorHandler)
+    }
     this.processes[processGroup.groupName] = processGroup.getReducer()
     this._updateReducer()
     return this
@@ -33,6 +38,10 @@ export class ReduxProcessStore implements IReduxProcessStore {
     delete this.processes[processGroup.groupName]
     this._updateReducer()
     return this
+  }
+
+  setErrorHandler(cb: ErrorHandler) {
+    this.errorHandler = cb
   }
 
   _updateReducer() {

@@ -50,4 +50,45 @@ describe('src/ReduxProcessGroup::execute', function () {
     this.assert.called(getStateSpy)
     this.assert.equal(result, 123)
   })
+
+  it('should handle error if error handler is set', async function () {
+    class ErrorProcess extends ReduxProcess<string, number, number, number> {
+      performAction(input: string) {
+        throw new Error('invalid')
+
+        return parseInt(input)
+      }
+
+      getNewState(payload: number) {
+        return payload
+      }
+    }
+
+    const instance = new ReduxProcessGroup<number, number>('name', {
+      processes: [ErrorProcess],
+      defaultState: 0
+    })
+
+    const dispatchSpy = this.sinon.spy()
+    const getStateSpy = this.sinon.stub().returns(0)
+
+    instance['errorHandler'] = this.sinon
+      .stub()
+      .returns(new Error('transformed')) as any
+
+    try {
+      const result = await instance.execute(ErrorProcess, '123')(
+        dispatchSpy,
+        getStateSpy,
+        null
+      )
+      this.assert.isNull(result)
+    } catch (e) {
+      this.assert.instanceOf(e, Error)
+    }
+
+    this.assert.notCalled(dispatchSpy)
+    this.assert.called(getStateSpy)
+    this.assert.called(instance['errorHandler'] as any)
+  })
 })
