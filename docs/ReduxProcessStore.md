@@ -10,6 +10,11 @@ The `ReduxProcessStore` class is responsible registering reducers to the interna
 
 ### Methods
 ```typescript
+setErrorHandler(processGroup: ErrorHandler): void
+```
+* This method is responsible for transforming errors. Should you want to capture an error or remove auth tokens, it can be done here. Return a new Error if you'd like.
+
+```typescript
 addProcessGroup(processGroup: IReduxProcessGroup<any, any>): this
 ```
 * This method is responsible for dynamically loading a new reducer to the internal redux store. This can be performed at anytime throughout the lifecycle of the application.

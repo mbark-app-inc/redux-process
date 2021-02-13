@@ -1,7 +1,10 @@
 import { ThunkAction } from 'redux-thunk'
 import { Reducer } from 'redux'
 import { ReduxProcessAction, ReduxProcessOptions } from '../types/ReduxProcess'
-import { ReduxProcessGroupOptions } from '../types/ReduxProcessGroup'
+import {
+  ReduxProcessGroupOptions,
+  ErrorHandler
+} from '../types/ReduxProcessGroup'
 import { IReduxProcessClass } from './IReduxProcess'
 export interface IReduxProcessGroupClass<ProcessGroupState, GlobalState> {
   new (
@@ -13,6 +16,7 @@ export interface IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
   options: ReduxProcessGroupOptions<ProcessGroupState>
   getDefaultState(): ProcessGroupState
+  setErrorHandler(cb: ErrorHandler): void
   execute<Form, PayloadValue>(
     CustomReduxProcess: IReduxProcessClass<
       Form,

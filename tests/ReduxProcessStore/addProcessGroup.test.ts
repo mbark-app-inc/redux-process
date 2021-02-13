@@ -25,4 +25,15 @@ describe('src/ReduxProcessStore::addProcessGroup', function () {
     const self = instance.addProcessGroup(process)
     this.assert.equal(instance, self)
   })
+
+  it('should return instance of this if error handler is set', function () {
+    const process = new ReduxProcessGroup('test', {
+      defaultState: '',
+      processes: []
+    })
+    const instance = new ReduxProcessStore()
+    instance.setErrorHandler(() => {})
+    const self = instance.addProcessGroup(process)
+    this.assert.equal(instance, self)
+  })
 })

@@ -3,12 +3,16 @@ import { Reducer } from 'redux'
 import { IReduxProcessClass } from './interfaces/IReduxProcess'
 import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction, ReduxProcessOptions } from './types/ReduxProcess'
-import { ReduxProcessGroupOptions } from './types/ReduxProcessGroup'
+import {
+  ReduxProcessGroupOptions,
+  ErrorHandler
+} from './types/ReduxProcessGroup'
 
 export class ReduxProcessGroup<ProcessGroupState, GlobalState>
   implements IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
   options: ReduxProcessGroupOptions<ProcessGroupState>
+  protected errorHandler?: ErrorHandler
 
   constructor(
     groupName: string,
@@ -20,6 +24,10 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
 
   getDefaultState(): ProcessGroupState {
     return this.options.defaultState
+  }
+
+  setErrorHandler(cb: ErrorHandler) {
+    this.errorHandler = cb
   }
 
   execute<Form, PayloadValue>(
@@ -46,14 +54,24 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
       const store = getState()
       const action = new CustomReduxProcess(this.getReduxProcessOptions(store))
 
-      const result = await action.performAction(form, store)
-
-      dispatch({
-        type: this.getFormattedActionType(CustomReduxProcess.getProcessKey()),
-        payload: result
-      })
-
-      return result
+      let result: PayloadValue | Promise<PayloadValue>
+      try {
+        result = await action.performAction(form, store)
+        dispatch({
+          type: this.getFormattedActionType(CustomReduxProcess.getProcessKey()),
+          payload: result
+        })
+        return result
+      } catch (e) {
+        let error = e
+        if (this.errorHandler) {
+          const result = this.errorHandler(e)
+          if (result) {
+            error = result
+          }
+        }
+        throw error
+      }
     }
   }
 
