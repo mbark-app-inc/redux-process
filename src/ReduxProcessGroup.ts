@@ -8,6 +8,11 @@ import {
   ErrorHandler
 } from './types/ReduxProcessGroup'
 
+/**
+ * [constructor description]
+ * @param groupName the name prefix for the group (e.g globalstate.auth.<props> => 'auth')
+ * @param options   object containing the processes for this group and a default state
+ */
 export class ReduxProcessGroup<ProcessGroupState, GlobalState>
   implements IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
@@ -22,14 +27,25 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
     this.options = options
   }
 
+  /**
+   * Get the default state
+   */
   getDefaultState(): ProcessGroupState {
     return this.options.defaultState
   }
 
+  /**
+   * Set the error handler for this specific group (internal)
+   * @param  cb
+   */
   setErrorHandler(cb: ErrorHandler) {
     this.errorHandler = cb
   }
 
+  /**
+   * Forms a ReduxProcess and passed form values into a redux action to be executed by dispatch
+   * @param  ReduxProcess a process that is owned by this group
+   */
   execute<Form, PayloadValue>(
     CustomReduxProcess: IReduxProcessClass<
       Form,
@@ -50,7 +66,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
       )
     }
 
-    return async (dispatch, getState) => {
+    return async (dispatch: any, getState: any) => {
       const store = getState()
       const action = new CustomReduxProcess(this.getReduxProcessOptions(store))
 
@@ -75,8 +91,11 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
     }
   }
 
+  /**
+   * Return the full reducer for this group. This is registed to redux
+   */
   getReducer(): Reducer<ProcessGroupState, ReduxProcessAction<any>> {
-    return (state, action) => {
+    return (state: any, action: any) => {
       if (state === undefined) {
         state = this.options.defaultState
       }
@@ -96,10 +115,18 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
     }
   }
 
+  /**
+   * Form an action name (internal)
+   * @param  key
+   */
   getFormattedActionType(key: string): string {
     return `@redux-process-group/${this.groupName.toLowerCase()}/${key.toLowerCase()}`
   }
 
+  /**
+   * Get default options for a process (can be overwritten in subclass)
+   * @param  store  global state
+   */
   getReduxProcessOptions(_?: GlobalState): ReduxProcessOptions {
     return {}
   }
