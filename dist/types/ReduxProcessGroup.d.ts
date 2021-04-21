@@ -3,7 +3,7 @@ export declare type ReduxProcessGroupOptions<DefaultStateType> = {
   processes: IReduxProcessClass<any, any, any, any>[]
   defaultState: DefaultStateType
 }
-declare type ErrorHandlerResponse = Error | void
+declare type ErrorHandlerResponse = void
 export declare type ErrorHandler<T> = (
   error: Error,
   dispatch: any,

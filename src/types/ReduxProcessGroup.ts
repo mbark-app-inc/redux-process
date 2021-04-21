@@ -5,7 +5,7 @@ export type ReduxProcessGroupOptions<DefaultStateType> = {
   defaultState: DefaultStateType
 }
 
-type ErrorHandlerResponse = Error | void
+type ErrorHandlerResponse = void
 export type ErrorHandler<T> = (
   error: Error,
   dispatch: any,
