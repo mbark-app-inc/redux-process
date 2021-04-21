@@ -14,13 +14,13 @@ import { ErrorHandler } from './types/ReduxProcessGroup'
 /**
  * A global store manager for redux. Allows the ability to dynamically add and remove "sub-stores" (ReduxProcessGroup)
  */
-export class ReduxProcessStore implements IReduxProcessStore {
+export class ReduxProcessStore<GlobalState> implements IReduxProcessStore {
   protected store: Store<any, ReduxProcessAction<any>>
   protected processes: Record<
     string,
     Reducer<any, ReduxProcessAction<any>>
   > = {}
-  protected errorHandler?: ErrorHandler
+  protected errorHandler?: ErrorHandler<GlobalState>
 
   /**
    * Create a new instance
@@ -59,7 +59,7 @@ export class ReduxProcessStore implements IReduxProcessStore {
    * Set an internal global error handler for actions when dispatched (should be set before calling `addProcessGroup`)
    * @param  cb
    */
-  setErrorHandler(cb: ErrorHandler) {
+  setErrorHandler(cb: ErrorHandler<GlobalState>) {
     this.errorHandler = cb
   }
 

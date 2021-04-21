@@ -20,7 +20,7 @@ export interface IReduxProcessGroup<ProcessGroupState, GlobalState> {
 
   getDefaultState(): ProcessGroupState
 
-  setErrorHandler(cb: ErrorHandler): void
+  setErrorHandler(cb: ErrorHandler<GlobalState>): void
 
   execute<Form, PayloadValue>(
     CustomReduxProcess: IReduxProcessClass<
@@ -31,7 +31,7 @@ export interface IReduxProcessGroup<ProcessGroupState, GlobalState> {
     >,
     form: Form
   ): ThunkAction<
-    Promise<PayloadValue>,
+    Promise<PayloadValue | void>,
     GlobalState,
     unknown,
     ReduxProcessAction<PayloadValue>

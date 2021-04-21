@@ -17,7 +17,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
   implements IReduxProcessGroup<ProcessGroupState, GlobalState> {
   groupName: string
   options: ReduxProcessGroupOptions<ProcessGroupState>
-  protected errorHandler?: ErrorHandler
+  protected errorHandler?: ErrorHandler<GlobalState>
 
   constructor(
     groupName: string,
@@ -38,7 +38,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
    * Set the error handler for this specific group (internal)
    * @param  cb
    */
-  setErrorHandler(cb: ErrorHandler) {
+  setErrorHandler(cb: ErrorHandler<GlobalState>) {
     this.errorHandler = cb
   }
 
@@ -55,7 +55,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
     >,
     form: Form | null = null
   ): ThunkAction<
-    Promise<PayloadValue>,
+    Promise<PayloadValue | void>,
     GlobalState,
     unknown,
     ReduxProcessAction<PayloadValue>
@@ -67,7 +67,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
     }
 
     return async (dispatch: any, getState: any) => {
-      const store = getState()
+      const store: GlobalState = getState()
       const action = new CustomReduxProcess(this.getReduxProcessOptions(store))
 
       let result: PayloadValue | Promise<PayloadValue>
@@ -79,14 +79,11 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
         })
         return result
       } catch (e) {
-        let error = e
         if (this.errorHandler) {
-          const result = this.errorHandler(e)
-          if (result) {
-            error = result
-          }
+          await this.errorHandler(e, dispatch, store)
+          return
         }
-        throw error
+        throw e
       }
     }
   }
