@@ -59,7 +59,7 @@ describe('src/ReduxProcessGroup::getReducer', function () {
 
     const reducer = instance.getReducer()
     const result = reducer(1234, {
-      type: instance.getFormattedActionType(Process.getProcessKey()),
+      type: instance.getFormattedActionType(Process),
       payload: 123
     })
 

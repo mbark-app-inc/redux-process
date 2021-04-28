@@ -39,7 +39,9 @@ export interface IReduxProcessGroup<ProcessGroupState, GlobalState> {
 
   getReducer(): Reducer<ProcessGroupState, ReduxProcessAction<any>>
 
-  getFormattedActionType(key: string): string
+  getFormattedActionType(
+    CustomReduxProcess: IReduxProcessClass<any, any, any, any>
+  ): string
 
   getReduxProcessOptions(store?: GlobalState): ReduxProcessOptions
 }

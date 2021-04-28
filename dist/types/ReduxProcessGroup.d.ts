@@ -9,4 +9,8 @@ export declare type ErrorHandler<T> = (
   dispatch: any,
   store: T
 ) => ErrorHandlerResponse | Promise<ErrorHandlerResponse>
+export declare type ReduxProcessActionTypes = Map<
+  IReduxProcessClass<any, any, any, any>,
+  string
+>
 export {}

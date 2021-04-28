@@ -5,7 +5,8 @@ import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction, ReduxProcessOptions } from './types/ReduxProcess'
 import {
   ReduxProcessGroupOptions,
-  ErrorHandler
+  ErrorHandler,
+  ReduxProcessActionTypes
 } from './types/ReduxProcessGroup'
 /**
  * [constructor description]
@@ -17,6 +18,7 @@ export declare class ReduxProcessGroup<ProcessGroupState, GlobalState>
   groupName: string
   options: ReduxProcessGroupOptions<ProcessGroupState>
   protected errorHandler?: ErrorHandler<GlobalState>
+  protected actionTypes: ReduxProcessActionTypes
   constructor(
     groupName: string,
     options: ReduxProcessGroupOptions<ProcessGroupState>
@@ -56,7 +58,9 @@ export declare class ReduxProcessGroup<ProcessGroupState, GlobalState>
    * Form an action name (internal)
    * @param  key
    */
-  getFormattedActionType(key: string): string
+  getFormattedActionType(
+    CustomReduxProcess: IReduxProcessClass<any, any, any, any>
+  ): string
   /**
    * Get default options for a process (can be overwritten in subclass)
    * @param  store  global state

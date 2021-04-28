@@ -5,7 +5,8 @@ import { IReduxProcessGroup } from './interfaces/IReduxProcessGroup'
 import { ReduxProcessAction, ReduxProcessOptions } from './types/ReduxProcess'
 import {
   ReduxProcessGroupOptions,
-  ErrorHandler
+  ErrorHandler,
+  ReduxProcessActionTypes
 } from './types/ReduxProcessGroup'
 
 /**
@@ -18,6 +19,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
   groupName: string
   options: ReduxProcessGroupOptions<ProcessGroupState>
   protected errorHandler?: ErrorHandler<GlobalState>
+  protected actionTypes: ReduxProcessActionTypes = new Map()
 
   constructor(
     groupName: string,
@@ -74,7 +76,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
       try {
         result = await action.performAction(form, store)
         dispatch({
-          type: this.getFormattedActionType(CustomReduxProcess.getProcessKey()),
+          type: this.getFormattedActionType(CustomReduxProcess),
           payload: result
         })
         return result
@@ -98,9 +100,7 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
       }
 
       for (const ProcessClass of this.options.processes) {
-        const possibleActionType = this.getFormattedActionType(
-          ProcessClass.getProcessKey()
-        )
+        const possibleActionType = this.getFormattedActionType(ProcessClass)
 
         if (action.type === possibleActionType) {
           const process = new ProcessClass(this.getReduxProcessOptions())
@@ -116,8 +116,18 @@ export class ReduxProcessGroup<ProcessGroupState, GlobalState>
    * Form an action name (internal)
    * @param  key
    */
-  getFormattedActionType(key: string): string {
-    return `@redux-process-group/${this.groupName.toLowerCase()}/${key.toLowerCase()}`
+  getFormattedActionType(
+    CustomReduxProcess: IReduxProcessClass<any, any, any, any>
+  ): string {
+    let value = this.actionTypes.get(CustomReduxProcess)
+    if (value) {
+      return value
+    }
+
+    value = `@redux-process-group/${this.groupName.toLowerCase()}/${CustomReduxProcess.getProcessKey()}`
+    this.actionTypes.set(CustomReduxProcess, value)
+
+    return value
   }
 
   /**

@@ -21,7 +21,7 @@ export abstract class ReduxProcess<
    * @return
    */
   static getProcessKey(): string {
-    return this.name
+    return Math.random().toString(16).substr(2, 32)
   }
 
   /**
